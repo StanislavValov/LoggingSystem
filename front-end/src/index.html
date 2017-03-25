@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html ng-app="app" ng-controller="AccountsCtrl">
+<head>
+    <title>App</title>
+
+    <!-- social media tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@joshdmiller">
+    <meta name="twitter:title" content="ngBoilerplate">
+    <meta name="twitter:description"
+          content="Non-Trivial AngularJS Made Easy: Everything you need to kickstart AngularJS projects: a best-practice directory structure, an intelligent build system, and the best web design libraries around.">
+    <meta name="twitter:creator" content="@joshdmiller">
+    <meta name="twitter:image:src"
+          content="https://a248.e.akamai.net/assets.github.com/images/modules/logos_page/Octocat.png?1366128846">
+    <meta property="og:title" content="ngBoilerplate"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="http://bit.ly/ngBoilerplate"/>
+    <meta property="og:image"
+          content="https://a248.e.akamai.net/assets.github.com/images/modules/logos_page/Octocat.png?1366128846"/>
+    <meta property="og:description"
+          content="Non-Trivial AngularJS Made Easy: Everything you need to kickstart AngularJS projects: a best-practice directory structure, an intelligent build system, and the best web design libraries around.">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- font awesome from BootstrapCDN -->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
+    <link rel="stylesheet" type="text/css" href="<%= file %>"/>
+    <% }); %>
+
+    <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
+    <script type="text/javascript" src="<%= file %>"></script>
+    <% }); %>
+</head>
+<body>
+<div ng-init="findAll()" class="container-fluid">
+    <header id="header">
+        <div class="row" style="background-color: lightgray"
+             ng-controller="NavbarCtrl"  role="navigation">
+            <div>
+                <!--<img class="navbar-brand" src="assets/images/logo.png">-->
+                <div class="static-notification">
+                    <notification-box></notification-box>
+                </div>
+            </div>
+
+            <div class="col-md-10" ng-repeat="context in contexts" data-target="#navigation-menu">
+                <div class="col-md-2">
+                    <nav-bar-item></nav-bar-item>
+                </div>
+            </div>
+        </div>
+        <!--<div class="row" ng-controller="NavbarCtrl">-->
+            <!--<div class="col-md-10" ng-repeat="context in contexts" data-target="#navigation-menu">-->
+                <!--<div class="col-md-2">-->
+                    <!--<span><nav-bar-item></nav-bar-item></span>-->
+                <!--</div>-->
+            <!--</div>-->
+
+        <!--</div>-->
+    </header>
+    <div class="col-md-5 top-space">
+        <div class="row accounts-name-container">
+            <div class="col-md-12 top-space" ng-repeat="account in accounts">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-xs btn-default pull-right" tooltip="Remove"
+                                        ng-click="remove($index, account.nickname)">
+                                    <i class="icon-remove"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Username:</label>
+                            </div>
+
+                            <div class="col-md-5" ng-bind="account.nickname"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>First Name:</label>
+                            </div>
+                            <div ng-if="!account.firstName" ng-init="account.firstName='-'"></div>
+                            <div class="col-md-5" ng-bind="account.firstName" editable-text="account.firstName"
+                                 onaftersave="update(account)"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Last Name:</label>
+                            </div>
+                            <div ng-if="!account.lastName" ng-init="account.lastName='-'"></div>
+                            <div class="col-md-5" ng-bind="account.lastName" editable-text="account.lastName"
+                                 onaftersave="update(account)"></div>
+
+                            <div ng-if="!account.imageData" class="col-md-4">
+                                <button style="margin-right: 5px" ng-click="importImage(account.nickname)" class="btn btn-primary btn-xs font-scale">
+                                    INSERT PICTURE
+                                </button>
+                            </div>
+                            <div ng-if="account.imageData" class="col-md-4">
+                                <img ng-src="data:image/JPEG;base64,{{account.imageData}}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Email:</label>
+                            </div>
+                            <div ng-if="!account.email" ng-init="account.email='-'"></div>
+                            <div class="col-md-5" ng-bind="account.email" editable-email="account.email"
+                                 onaftersave="update(account)"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Date of birth:</label>
+                            </div>
+                            <div ng-if="!account.dateOfBirth" ng-init="account.dateOfBirth='01.01.1900'"></div>
+                            <div class="col-md-5" ng-bind="account.dateOfBirth | date:'dd.MM.yyyy'"
+                                 editable-date="account.dateOfBirth" onaftersave="update(account)"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 top-space">
+        <form class="css-form" name="accounts">
+            <div class="col-md-12 accounts-name-container">
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-3">
+                        <input class="form-control" type="text"
+                               ng-model="account.nickname" placeholder="Nickname">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-3">
+                        <input class="form-control" type="text"
+                               ng-model="account.firstName" placeholder="First Name">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-3">
+                        <input class="form-control" type="text"
+                               ng-model="account.lastName" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-3">
+                        <input class="form-control" type="email"
+                               ng-model="account.email" placeholder="Email">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-md-offset-3">
+                        <input class="form-control" type="date"
+                               ng-model="account.dateOfBirth" placeholder="Date of Birth">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-3">
+                        <button class="btn btn-primary" type="button" ng-click="create(account)">Create</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+</body>
+</html>
