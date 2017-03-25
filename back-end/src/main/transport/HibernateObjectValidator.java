@@ -2,6 +2,7 @@ package main.transport;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import main.core.Error;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;

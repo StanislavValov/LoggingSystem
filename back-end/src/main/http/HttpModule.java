@@ -7,12 +7,18 @@ import com.google.inject.Module;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.sitebricks.SitebricksModule;
+import com.google.sitebricks.headless.Reply;
+import com.google.sitebricks.headless.Service;
 import main.transport.HibernateObjectValidator;
 import main.transport.ObjectValidator;
 import org.hibernate.validator.HibernateValidator;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
+
+import static com.google.inject.matcher.Matchers.annotatedWith;
+import static com.google.inject.matcher.Matchers.only;
+import static com.google.inject.matcher.Matchers.returns;
 
 /**
  * @author Stanislav Valov <stanislav.valov@clouway.com>
@@ -31,6 +37,8 @@ class HttpModule extends AbstractModule{
     };
 
     install(pageBricks);
+
+    bindInterceptor(annotatedWith(Service.class), returns(only(Reply.class)), new HttpRequestErrorReporter("Internal Server Error"));
   }
 
   @Provides

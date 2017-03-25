@@ -125,10 +125,6 @@ class AccountService {
   }
 
   private User adapt(UserDTO dto) {
-    Encoder encoder = new Encoder();
-
-    byte[] imageData = encoder.convertToArray(dto.imageData);
-
     return new User(dto.nickname, dto.firstName, dto.lastName, dto.email, dto.dateOfBirth, dto.imageData);
   }
 }

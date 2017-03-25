@@ -1,6 +1,7 @@
 package main.transport;
 
 import com.google.common.collect.Lists;
+import main.core.Error;
 
 import java.util.List;
 

@@ -1,5 +1,7 @@
 package main.transport;
 
+import main.core.Error;
+
 import java.util.List;
 
 /**

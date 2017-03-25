@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.TypeLiteral;
 import com.google.sitebricks.client.Transport;
+import main.core.Error;
 
 import java.io.IOException;
 import java.io.InputStream;
