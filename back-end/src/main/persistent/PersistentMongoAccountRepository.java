@@ -6,7 +6,9 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import main.core.User;
+import main.util.Encoder;
 import org.bson.Document;
+import org.bson.types.Binary;
 
 import java.util.Date;
 import java.util.List;
@@ -110,8 +112,6 @@ class PersistentMongoAccountRepository implements AccountRepository {
         String email = found.getString("email");
         Date data = found.getDate("dateOfBirth");
         String imageData = found.getString("imageData");
-//        String imageData = "";
-//        byte[] imageData = ((Binary)found.get("imageData")).getData();
 
         return new User(nickname, firstName, lastName, email, data, imageData);
     }

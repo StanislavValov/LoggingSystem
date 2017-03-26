@@ -13,16 +13,16 @@ public class UserDTO {
 
   @NotNull(message = "Nickname is required.")
   @NotEmpty(message = "Nickname cannot be empty.")
-  @Pattern(regexp = "\\p{L}", message = "Please provide only letters.")
+  @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Please provide only letters.")
   public String nickname;
 
   public String firstName;
   public String lastName;
   public String email;
-  public Date dateOfBirth;
+  public String dateOfBirth;
   public String imageData;
 
-  public UserDTO(String nickname, String firstName, String lastName, String email, Date dateOfBirth, String imageData) {
+  public UserDTO(String nickname, String firstName, String lastName, String email, String dateOfBirth, String imageData) {
     this.nickname = nickname;
     this.firstName = firstName;
     this.lastName = lastName;

@@ -3,16 +3,14 @@ package main.transport;
 /**
  * @author Stanislav Valov <Stanislav.Valov@experian.com>
  */
+import com.google.common.io.ByteStreams;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.TypeLiteral;
 import com.google.sitebricks.client.Transport;
 import main.core.Error;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.List;
 
 public class Json implements Transport {
@@ -26,14 +24,14 @@ public class Json implements Transport {
     }
 
     public <T> T in(InputStream inputStream, Class<T> tClass) throws IOException {
-        T entity = gson.fromJson(new InputStreamReader(inputStream, "UTF-8"), tClass);
+        T entity = gson.fromJson(createReader(inputStream), tClass);
         check(entity);
         return entity;
     }
 
     @Override
     public <T> T in(InputStream inputStream, TypeLiteral<T> typeLiteral) throws IOException {
-        T entity = gson.fromJson(new InputStreamReader(inputStream,"UTF-8"), typeLiteral.getType());
+        T entity = gson.fromJson(createReader(inputStream), typeLiteral.getType());
         check(entity);
         return entity;
     }
@@ -57,6 +55,13 @@ public class Json implements Transport {
         if (hasErrors) {
             throw new ValidationException(errors);
         }
+    }
+
+    private InputStreamReader createReader(InputStream input) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ByteStreams.copy(input, out);
+
+        return new InputStreamReader(new ByteArrayInputStream(out.toByteArray()), "UTF-8");
     }
 }
 
