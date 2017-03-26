@@ -105,7 +105,7 @@
                                 </button>
                             </div>
                             <div ng-if="account.imageData" class="col-md-4">
-                                <img ng-src="data:image/JPEG;base64,{{account.imageData}}">
+                                <img ng-src="{{getImage(account)}}" ng-click="importImage(account.nickname)">
                             </div>
                         </div>
                         <div class="row">
@@ -120,8 +120,8 @@
                             <div class="col-md-3">
                                 <label>Date of birth:</label>
                             </div>
-                            <div ng-if="!account.dateOfBirth" ng-init="account.dateOfBirth='01.01.1900'"></div>
-                            <div class="col-md-5" ng-bind="account.dateOfBirth | date:'dd.MM.yyyy'"
+                            <div ng-if="!account.dateOfBirth" ng-init="account.dateOfBirth='-'"></div>
+                            <div class="col-md-5" ng-bind="account.dateOfBirth | date:'dd-MM-yyyy'"
                                  editable-date="account.dateOfBirth" onaftersave="update(account)"></div>
                         </div>
                     </div>
