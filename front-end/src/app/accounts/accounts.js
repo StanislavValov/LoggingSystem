@@ -44,9 +44,7 @@ angular.module('accounts', [
                 accountService.create(account).then(function (response) {
                     notification.add([response]);
 
-                    accountService.findAll().then(function (result) {
-                        $scope.accounts = result;
-                    });
+                    $scope.findAll();
                 });
             };
 
@@ -60,6 +58,14 @@ angular.module('accounts', [
             $scope.update = function (account) {
                 accountService.update(account).then(function (result) {
                     notification.add([result]);
+
+                    $scope.findAll();
+                });
+            };
+
+            $scope.findAll = function () {
+                accountService.findAll().then(function (result) {
+                    $scope.accounts = result;
                 });
             };
 
@@ -69,9 +75,15 @@ angular.module('accounts', [
                 file.click();
                 angular.element(file).bind('change', function (event) {
                     accountService.importImage(event.path[0].files[0], nickname).then(function (data) {
-                        // notification.add([data]);
+                        notification.add([data]);
+
+                        $scope.findAll();
                     });
                 });
+            };
+
+            $scope.getImage = function(account){
+                return 'data:image/png;base64,' + account.imageData;
             };
         }
     ]);
