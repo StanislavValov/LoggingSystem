@@ -1,18 +1,13 @@
 package main.util;
 
 import com.sun.image.codec.jpeg.ImageFormatException;
-import org.omg.CORBA.portable.ApplicationException;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Base64;
-
-import static com.google.common.base.Strings.isNullOrEmpty;
 
 /**
  * @author Stanislav Valov <Stanislav.Valov@experian.com>
@@ -29,14 +24,6 @@ public class Encoder {
         }
 
         return "";
-    }
-
-    public static byte[] convertToArray(String value) {
-        if (!isNullOrEmpty(value)) {
-            return Base64.getUrlDecoder().decode(value);
-        }
-
-        return null;
     }
 
     private static byte[] scale(byte[] fileData) {
@@ -57,7 +44,7 @@ public class Encoder {
             ImageIO.write(imageBuff, "jpg", buffer);
 
             return buffer.toByteArray();
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new ImageFormatException("Image cannot be converted");
         }
     }
