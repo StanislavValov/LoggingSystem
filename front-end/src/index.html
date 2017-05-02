@@ -51,25 +51,16 @@
                 </div>
             </div>
         </div>
-        <!--<div class="row" ng-controller="NavbarCtrl">-->
-            <!--<div class="col-md-10" ng-repeat="context in contexts" data-target="#navigation-menu">-->
-                <!--<div class="col-md-2">-->
-                    <!--<span><nav-bar-item></nav-bar-item></span>-->
-                <!--</div>-->
-            <!--</div>-->
-
-        <!--</div>-->
     </header>
-    <div class="col-md-5 top-space">
+    <div class="col-md-7 top-space">
         <div class="row accounts-name-container">
             <div class="col-md-12 top-space" ng-repeat="account in accounts">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-md-12">
-                                <button class="btn btn-xs btn-default pull-right" tooltip="Remove"
+                                <button class="btn btn-xs btn-default pull-right .glyphicon-remove-sign" tooltip="Remove"
                                         ng-click="remove($index, account.nickname)">
-                                    <i class="icon-remove"></i>
                                 </button>
                             </div>
                         </div>
@@ -87,17 +78,21 @@
                             <div class="col-md-3">
                                 <label>First Name:</label>
                             </div>
+                            <div class="col-md-2" ng-bind="account.firstName"
+                                 editable-text="account.firstName"
+                                 onaftersave="update(account)">
+                            </div>
                             <div ng-if="!account.firstName" ng-init="account.firstName='-'"></div>
-                            <div class="col-md-5" ng-bind="account.firstName" editable-text="account.firstName"
-                                 onaftersave="update(account)"></div>
                         </div>
                         <div class="row">
                             <div class="col-md-3">
                                 <label>Last Name:</label>
                             </div>
-                            <div ng-if="!account.lastName" ng-init="account.lastName='-'"></div>
-                            <div class="col-md-5" ng-bind="account.lastName" editable-text="account.lastName"
+
+                            <div class="col-md-5" ng-bind="account.lastName"
+                                 editable-text="account.lastName"
                                  onaftersave="update(account)"></div>
+                            <div ng-if="!account.lastName" ng-init="account.lastName='-'"></div>
 
                             <div ng-if="!account.imageData" class="col-md-4">
                                 <button style="margin-right: 5px" ng-click="importImage(account.nickname)" class="btn btn-primary btn-xs font-scale">
@@ -130,7 +125,7 @@
         </div>
     </div>
 
-    <div class="col-md-6 top-space">
+    <div class="col-md-5 top-space">
         <form class="css-form" name="accounts">
             <div class="col-md-12 accounts-name-container">
                 <div class="row">
