@@ -19,7 +19,6 @@ public class PersistentModule extends AbstractModule {
     bind(AccountRepository.class).to(PersistentMongoAccountRepository.class).in(Singleton.class);
     bind(SessionRepository.class).to(PersistentMongoSessionRepository.class).in(Singleton.class);
     bind(UserRepository.class).to(PersistentMongoUserRepository.class).in(Singleton.class);
-    bind(AccountRepository.class).to(PersistentJDBCAccountRepository.class).in(Singleton.class);
   }
 
   @Provides
