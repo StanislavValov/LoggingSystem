@@ -1,0 +1,10 @@
+*.sw*
+*~
+front-end/build/
+front-end/bin/
+front-end/node_modules/
+front-end/vendor
+
+.idea
+/*.iml
+/*.md

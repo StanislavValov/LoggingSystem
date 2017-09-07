@@ -2,7 +2,7 @@ angular.module('accounts', [
 
 ])
     .config(['pagesProvider', function (pages) {
-        var accounts = {name: "Accounts", url: "/accounts", templateUrl: "accounts/accounts.tpl.html"};
+        var accounts = {name: "Accounts", url: "/accounts", templateUrl: "accounts/accounts.tpl.html", controller: 'AccountsCtrl'};
 
         pages.addPage(accounts);
     }])
@@ -36,6 +36,7 @@ angular.module('accounts', [
         'notification',
         'accountService',
         function ($scope, notification, accountService) {
+        console.log("asdadasdasdad");
             accountService.findAll().then(function (result) {
                 $scope.accounts = result;
             });

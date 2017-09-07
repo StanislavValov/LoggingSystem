@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Login</title>
+
+    <link type="text/css" rel="stylesheet" href="assets/css/bootstrap.css"/>
+</head>
+
+<body>
+<div class="form-container center-block">
+    <div class="panel-title" id="title">Login</div>
+
+    <div class="alert-error">
+        <div class="error-message">${errorMessage}</div>
+    </div>
+
+    <form method="POST" action="/login">
+        <div class="row">
+            <div class="col-md-4">
+                <label>Username:</label>
+                <input class="form-control" type="text" name="userDTO.username"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Password:</label>
+                <input class="form-control" type="password" name="userDTO.password"/>
+            </div>
+        </div>
+        <!--<input type="hidden" name="currentPage" id="currentPage" value='${currentPage}'/>-->
+        <hr/>
+        <div class="row top-buffer">
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-success margin5">Login</button>
+            </div>
+            <div class="col-md-3">
+                <a href="/register">Register</a>
+                <!--<a href="${OAuthCodeURL}">OAUTH Authentication</a>-->
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -5,8 +5,11 @@ angular.module('app', [
     'notification',
     'httpHelper',
     'router',
+    'login',
+    'register',
     'accounts'
 ])
+
     .run(function (editableOptions, editableThemes) {
         editableOptions.theme = 'bs3'; // set xeditable to use bootstrap3 theme
 

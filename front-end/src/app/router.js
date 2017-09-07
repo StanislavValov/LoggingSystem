@@ -11,6 +11,5 @@ angular.module('router', ['ui.router'])
             this.contexts.push(page);
 
             $stateProvider.state(page);
-
         };
     }]);
